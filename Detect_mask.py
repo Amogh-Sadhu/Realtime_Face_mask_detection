@@ -20,17 +20,18 @@ while(True):
     resized_img = preprocess_input(resized_img)
     result=model.predict(resized_img,)
     label=np.argmax(result,axis=1)[0]
+
+    cv2.rectangle(img,(0,0),(210,70), (186,186,186), -1)
+    cv2.rectangle(img,(0,0),(210,70), (0,0,0), 2)
    
     if label==1:
-        cv2.rectangle(img,(0,0),(210,70), (186,186,186), -1)
-        cv2.putText(img,'No mask',(10,25),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
-        cv2.putText(img,'Accuracy :{}%'.format(np.amax(result,axis=1)[0]*100),(10,50),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,0,0),2)
         
+        cv2.putText(img,'No mask',(10,25),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
+        cv2.putText(img,'Accuracy :{:.1f}%'.format(np.amax(result,axis=1)[0]*100),(10,50),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,0,0),2)  
         
     elif label==0:
-        cv2.rectangle(img,(0,0),(210,70),(186,186,186),-1)
         cv2.putText(img,'Mask',(10,25),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
-        cv2.putText(img,'Accuracy :{}%'.format(np.amax(result,axis=1)[0]*100),(10,50),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,0,0),2)
+        cv2.putText(img,'Accuracy :{:.1f}%'.format(np.amax(result,axis=1)[0]*100),(10,50),cv2.FONT_HERSHEY_SIMPLEX,0.7,(255,0,0),2)
         
     
     cv2.imshow('Video feed',img)
